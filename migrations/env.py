@@ -13,7 +13,12 @@ from src.models.base import Base
 load_dotenv('.env')
 
 config = context.config
-config.set_main_option('sqlalchemy.url', os.environ['DATABASE_DSN'])
+database_dsn = (
+            f'postgresql+asyncpg://{os.environ["POSTGRES_USER"]}:'
+            f'{os.environ["POSTGRES_PASSWORD"]}@{os.environ["DB_HOST"]}:'
+            f'{os.environ["DB_PORT"]}/{os.environ["POSTGRES_DB"]}'
+        )
+config.set_main_option('sqlalchemy.url', database_dsn)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
