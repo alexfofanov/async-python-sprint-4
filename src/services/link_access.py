@@ -10,8 +10,7 @@ from .base import ModelType, RepositoryDB
 class RepositoryLinkAccess(
     RepositoryDB[LinkAccessModel, LinkAccessCreate, LinkAccessUpdate]
 ):
-    # todo: Разобраться и добавить тип возвращаемого значения
-    async def get_status(self, db: AsyncSession, id: str):
+    async def get_status(self, db: AsyncSession, id: str) -> tuple[int] | None:
         stmt = (
             select(func.count().label('usages_count'))
             .select_from(self._model)
@@ -20,7 +19,6 @@ class RepositoryLinkAccess(
         result = await db.execute(statement=stmt)
         return result.first()
 
-    # todo: Разобраться и добавить тип возвращаемого значения
     async def get_full_status(
         self, db: AsyncSession, id: str, offset: int, limit: int
     ) -> list[ModelType]:
