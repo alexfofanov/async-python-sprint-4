@@ -15,7 +15,7 @@
 ```
 git clone https://github.com/alexfofanov/async-python-sprint-4.git
 
-cd async-python-sprint-3
+cd async-python-sprint-4
 
 python -m venv .venv
 
@@ -31,9 +31,11 @@ alembic upgrade head
 
 ./run_test_postgres.sh  # тебуется для запуска тестов
 
+pytest  # запуск тестов
+
 cd src
 
-python3 main.py
+python3 main.py  # запуск API
 ```
 
 ## Описание задания
