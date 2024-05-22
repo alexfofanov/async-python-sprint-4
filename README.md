@@ -24,12 +24,28 @@ source .venv/bin/activate
 pip install -r requirements.txt
 
 создать файл .env по аналоии с .env.sample
+```
 
-./run_postgres.sh
+### Запуска без docker-compose
+```
+./run_postgres.sh  
 
 alembic upgrade head
 
-./run_test_postgres.sh  # тебуется для запуска тестов
+fastapi run src/main.py --port 8000
+```
+
+### Запуск docker-compose
+```
+создать файл .env_docker по анологии с .env_docker.sample
+
+docker-compose up --build -d  # запуск 
+
+docker-compose down  # остановка и удаление
+```
+### Запуск тестов
+```
+./run_test_postgres.sh
 
 pytest  # запуск тестов
 
