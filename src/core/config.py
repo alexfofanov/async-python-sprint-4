@@ -9,7 +9,7 @@ class AppSettings(BaseSettings):
     postgres_user: str
     postgres_password: str
     postgres_db: str
-    db_host: IPvAnyAddress
+    db_host: IPvAnyAddress | str
     db_port: int
     postgres_test_db: str
     db_test_port: int
@@ -19,7 +19,7 @@ class AppSettings(BaseSettings):
     token_size: int
 
     class Config:
-        env_file = '.env' if 'pytest' in modules else '../.env'
+        env_file = '.env' if 'pytest' in modules else '.env'
 
     @property
     def dsn(self) -> str:

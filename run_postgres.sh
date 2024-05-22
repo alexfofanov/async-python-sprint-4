@@ -1,7 +1,5 @@
 #!/bin/sh
 
-#docker run --rm --name postgres-fastapi -e POSTGRES_PASSWORD=postgres -d postgres
-
 docker run \
   --rm   \
   --name postgres-fastapi \
