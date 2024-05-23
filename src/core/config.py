@@ -1,6 +1,6 @@
 from sys import modules
 
-from pydantic import IPvAnyAddress
+from pydantic import ConfigDict, IPvAnyAddress
 from pydantic_settings import BaseSettings
 
 
@@ -18,8 +18,9 @@ class AppSettings(BaseSettings):
     block_subnets: list[str]
     token_size: int
 
-    class Config:
-        env_file = '.env' if 'pytest' in modules else '.env'
+    model_config = ConfigDict(
+        env_file='.env' if 'pytest' in modules else '.env'
+    )
 
     @property
     def dsn(self) -> str:

@@ -24,7 +24,7 @@ class RepositoryLink(RepositoryDB[LinkModel, LinkCreate, LinkUpdate]):
         self, db: AsyncSession, *, objs: list[CreateSchemaType]
     ) -> list[ModelType]:
         db_objs = [
-            obj.dict() | {'original_url': str(obj.original_url)}
+            obj.model_dump() | {'original_url': str(obj.original_url)}
             for obj in objs
         ]
         stmt = insert(self._model).values(db_objs).returning(self._model)
