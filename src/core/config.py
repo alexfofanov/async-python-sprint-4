@@ -17,6 +17,8 @@ class AppSettings(BaseSettings):
     project_port: int
     block_subnets: list[str]
     token_size: int
+    secret_key: str
+    access_token_expire_minutes: int
 
     model_config = ConfigDict(
         env_file='.env' if 'pytest' in modules else '.env'

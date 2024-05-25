@@ -12,6 +12,9 @@ logger = logging.getLogger(__name__)
 
 
 class BlockingAccessFromNetworksMiddleware(BaseHTTPMiddleware):
+    """
+    Блокировка запросов из запрещённых сетей
+    """
 
     async def dispatch(self, request: Request, call_next):
         host = request.client.host

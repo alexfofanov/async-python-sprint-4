@@ -7,6 +7,7 @@ from starlette.responses import PlainTextResponse
 
 from api.v1.base import api_router
 from core.config import app_settings
+from middleware.auth import AuthMiddleware
 from middleware.blocking_access import BlockingAccessFromNetworksMiddleware
 
 app = FastAPI(
@@ -18,6 +19,7 @@ app = FastAPI(
 
 app.include_router(api_router, prefix='/api/v1')
 app.add_middleware(BlockingAccessFromNetworksMiddleware)
+app.add_middleware(AuthMiddleware, exclude_prefix='/api/v1/users/')
 
 
 @app.exception_handler(RequestValidationError)
