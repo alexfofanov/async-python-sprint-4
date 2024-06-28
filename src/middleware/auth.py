@@ -4,7 +4,7 @@ from starlette.responses import JSONResponse
 
 from core.auth import get_current_user
 
-ACCESS_TOKEN = 1
+ACCESS_TOKEN_POS = 1
 
 
 class AuthMiddleware(BaseHTTPMiddleware):
@@ -12,19 +12,20 @@ class AuthMiddleware(BaseHTTPMiddleware):
     Авторизация пользователя
     """
 
-    def __init__(self, app, exclude_prefix: str):
+    def __init__(self, app, exclude_prefixes: list[str]):
         super().__init__(app)
-        self.exclude_prefix = exclude_prefix
+        self.exclude_prefixes = exclude_prefixes
 
     async def dispatch(self, request: Request, call_next):
-        if request.url.path.startswith(self.exclude_prefix):
-            return await call_next(request)
+        for exclude_prefix in self.exclude_prefixes:
+            if request.url.path.startswith(exclude_prefix):
+                return await call_next(request)
 
         authorization: str = request.headers.get('authorization')
         if authorization and len(authorization.split()) == 2:
             try:
                 user = await get_current_user(
-                    authorization.split()[ACCESS_TOKEN]
+                    authorization.split()[ACCESS_TOKEN_POS]
                 )
             except HTTPException as e:
                 return JSONResponse(

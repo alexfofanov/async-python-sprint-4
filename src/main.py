@@ -19,7 +19,7 @@ app = FastAPI(
 
 app.include_router(api_router, prefix='/api/v1')
 app.add_middleware(BlockingAccessFromNetworksMiddleware)
-app.add_middleware(AuthMiddleware, exclude_prefix='/api/v1/users/')
+app.add_middleware(AuthMiddleware, exclude_prefixes=['/api/v1/users/'])
 
 
 @app.exception_handler(RequestValidationError)
